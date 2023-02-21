@@ -249,8 +249,114 @@ function convertHTML(str) {
 // test here
 convertHTML("Dolce & Gabbana");
 
+String.prototype.camelCase=function(){
+  if(this == ''){
+    return ''
+  }
+  return this.trim().split(' ').map(el=> el[0].toUpperCase() + el.substring(1)).reduce((acc,el)=>acc+el,'')
+}
 
 
+function solution (roman) {
+  const arabic = {M:1000,CM:900,D:500,CD:400,C:100,XC:90,L:50,XL:40,X:10,IX:9,V:5,IV:4,I:1};
+   
+  return roman.match(/CM|CD|XC|XL|IX|IV|\w/g).reduce((accum, roman) => accum + arabic[roman], 0);
+}
+
+
+function solution(number){
+  const arabic = {M:1000,CM:900,D:500,CD:400,C:100,XC:90,L:50,XL:40,X:10,IX:9,V:5,IV:4,I:1
+    };
+
+  let result = "";
+  for (let key in arabic)
+    while ( number >= arabic[key] ) {
+      result += key;
+      number -= arabic[key];
+    }
+  return result
+}
+
+function addLetters(...letters) {
+  if(!letters|| !letters.some(el => typeof el == 'string')){
+    return 'z'
+  }
+  let a = letters.reduce((acc,el) => acc + el.charCodeAt()-96,0);
+  while(a > 26){
+    a -= 26
+  }
+  return String.fromCharCode(a+96)
+}
+
+function inArray(array1,array2){
+  const result = [];
+  for(let i = 0; i < array2.length; i++){
+    for(let j = 0; j < array1.length; j++){
+      if(array2[i].includes(array1[j])){
+        result.push(array1[j])
+      }
+    }
+  }
+  return [...new Set(result)].sort()
+}
+
+function isPrime(num) {
+  if (num < 2){ 
+    return false;
+  }
+  for (let i = 2; i <= Math.sqrt(num); i++){
+     if (num % i == 0){  
+     return false;
+     }
+  } 
+  
+return true
+
+}
+
+function deleteNth(arr,n){
+  const a = {}
+  const result = [];
+  for(let i = 0; i < arr.length; i++){
+    if(!a[arr[i]]){
+      a[arr[i]] = 1
+    }else{
+      a[arr[i]] += 1
+    }
+    if(a[arr[i]]<=n){
+      result.push(arr[i])
+    }
+  }
+  return result
+}
+
+function findMissingLetter(array){
+  let res;
+  
+  const a = array.map(el=>el.toLowerCase())
+              .sort()
+              .map(el=>el.charCodeAt());
+  
+  for(let i = a[0]; i < a[a.length-1]; i++){
+    if(!a.includes(i)){
+      res = i
+    }
+  }
+  if(array[0] == array[0].toUpperCase()){
+    return String.fromCharCode(res).toUpperCase()
+  }
+     return String.fromCharCode(res)      
+}
+
+function toCamelCase(str){
+  if(str == ''){
+    return ''
+  }
+  str = str.split(/[_-]/);
+  const ex = str.slice(1).map(el => el.charAt(0).toUpperCase()+el.substring(1).toLowerCase());
+  ex.unshift(str[0]);
+  return ex.join('')
+}
 
 
 
